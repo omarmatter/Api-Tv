@@ -72,69 +72,30 @@ body {
   display: flex;
   background-position: center;
   min-height: 710px;
+  color: white;
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url(https://assets.nflxext.com/ffe/siteui/vlv3/a1dc92ca-091d-4ca9-a05b-8cd44bbfce6a/f9368347-e982-4856-a5a4-396796381f28/RS-en-20191230-popsignuptwoweeks-perspective_alpha_website_large.jpg);
+  url(https://assets.nflxext.com/ffe/siteui/vlv3/a1dc92ca-091d-4ca9-a05b-8cd44bbfce6a/f9368347-e982-4856-a5a4-396796381f28/RS-en-20191230-popsignuptwoweeks-perspective_alpha_website_large.jpg);
 
-  }
-
-
-
-.area {
-  color: white;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 70px;
+  padding-left: 50px;
 }
-
-.area h1 {
-  font-size: 60px;
-  word-spacing: 15px;
-  line-height: 75px;
+.main .image{
+  flex: 3;
 }
-
-.area h3 {
-  margin-top: -30px;
-  font-size: 27px;
-  font-weight: normal;
+.main .image img{
+  width: 75%;
 }
-
-.search {
-  width: 150%;
-  background-color: none;
-  min-height: 80px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-  margin-top: 10px;
+.main .summarey{
+  flex: 4;
+  flex-wrap: wrap;
+  line-height: 3;
 }
-
-.box {
-  width: 100%;
-  min-height: 65px;
+.main .detailse{
+  flex: 3;
+  margin-left: 30px;
 }
-/* 
-.try {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: #e50914;
-  min-height: 70px;
-  color: white;
-  width: 20%;
-  font-size: 24px;
-  text-transform: uppercase;
-  border: none;
-} */
-
-.area h4 {
-  margin-top: 10px;
-  font-weight: normal;
+.main h1{
+    color: white;
+    font-size: 50px;
 }
 .episodes{
     display: flex;
@@ -145,11 +106,12 @@ body {
 }
 .episodes .card {
   position: relative;
-  height: 550px;
 }
 .episodes .card img{
+    max-width: 100%;
+    max-height: 100%;
     width: 300px;
-    height: inherit;
+    height: 350px;
     object-fit: fill;
 
 }
@@ -180,6 +142,8 @@ body {
   text-align: center;
   margin-top: 40px;
 }
+
+
 .footer {
   display: flex;
   flex-direction: column;

@@ -3,10 +3,10 @@ const keySearch = document.querySelector('#inputSearch');
 const butnSearch = document.querySelector('#butnSearch');
 const count = document.querySelector('#count');
 
- const allEpisodes=[];
+ let allEpisodes=[];
 
 
-const url_all_episodes=  ' https://api.tvmaze.com/schedule/full' 
+const url_all_episodes=  'https://api.tvmaze.com/shows' 
 getAllEpisodes();
 keySearch.addEventListener('keyup',function(){
   
@@ -15,27 +15,34 @@ keySearch.addEventListener('keyup',function(){
 })
 
 function getAllEpisodes(){
+  
+  allEpisodes=[]
+  
 fetch(url_all_episodes )
 .then(function (re){
   return re.json();   
 }).then(function(data){
 let html = "";
+count.innerText=` ${data.length}/ ${data.length}`
+
   data.forEach((element) => {
+
     allEpisodes.push(element)
     
  
-    html += `<div class="card">
-    <img src=${element._embedded.show.image==null ? "" :element._embedded.show.image.medium} class="episode-image">
+    html += `
+    <a href="episode.html?id=${element.id}">
+    <div class="card">
+    <img src=${element.image==null ? "" :element.image.medium} class="episode-image">
      <div class="main-detailse">
       <div class="top">
           <span>${element.name}</span>
-          <span>S${element.season}E${element.number} </span>
       </div>
       <div class="bottom">
         <p>${element.summary ==null ? "" :element.summary }</p>
      </div>
      </div>
-  </div>`
+  </div> </a>`
 })
 episodes.innerHTML=html
       
@@ -74,11 +81,12 @@ function Search(search){
         
   // })
 
-
+  console.log(allEpisodes.length)
 
    const x= allEpisodes.filter(
-     e=>e.name.includes(search)
-     ||( e.summary!=null? e.summary.includes(search):""))
+   
+     e=>e.name.toLowerCase().includes(search.toLowerCase())
+     ||( e.summary!=null? e.summary.toLowerCase().includes(search.toLowerCase()):""))
    let html = "";
    count.innerText=` ${x.length}/ ${allEpisodes.length}`
 
@@ -86,18 +94,20 @@ function Search(search){
    x.map(item=>{
        
           html += `
+          <a href="episode.html?id=${item.id}">
+
           <div class="card">
-      <img src=${item._embedded.show.image==null ? "" :item._embedded.show.image.medium} class="episode-image">
+      <img src=${item.image==null ? "" :item.image.medium} class="episode-image">
        <div class="main-detailse">
         <div class="top">
             <span>${item.name}</span>
-            <span>S${item.season}E${item.number} </span>
+         
         </div>
         <div class="bottom">
           <p>${item.summary ==null ? "" :item.summary }</p>
        </div>
        </div>
-    </div>`
+    </div> </a>`
  
   episodes.innerHTML=html 
    })
