@@ -5,12 +5,51 @@ const episodes = document.querySelector('#episodes');
 const count = document.querySelector('#count');
 const select =document.querySelector('#select');
 const search = document.querySelector('#search');
+const main =document.querySelector('#main')
 
 
 
 let id=hrefParams.get("id")
 let   allEpisodes=[]
 getAllEpisodes()
+mainInfo();
+
+function mainInfo(){
+  fetch( `https://api.tvmaze.com/shows/${id}`)
+  .then(function (re){
+    return re.json(); 
+      
+  }).then(function(e){
+    
+    let html = "";
+
+        html+=`<div class="image">
+        <img src="${e.image.original}">
+      </div>
+       <div class="summarey">
+        <p>${e.summary}</p>
+    
+       </div>
+         <div class="detailse">
+             <div>
+           <span>Rated :</span> <span>${e.rating.average}</span>
+        </div>
+        <div>
+            <span>Genres :</span> <span>${e.genres}</span>
+         </div>
+         <div>
+            <span>Status :</span> <span>${e.status}</span>
+         </div>
+         <div>
+         <span>Runttime :</span> <span>${e.runtime}</span>
+      </div>
+         </div>`
+         main.innerHTML=html;
+
+      })
+    
+ 
+}
 
  function  getAllEpisodes(){
   allEpisodes=[]
@@ -26,7 +65,7 @@ getAllEpisodes()
       allEpisodes.push(element)
    sel+=`<option value=${element.id}>E0${element.number}S0${element.season} - ${element.name} </option>`
       html += `
-      <a href="episode.html?id=${element.id}">
+    
       <div class="card">
       <img src=${element.image==null ? "" :element.image.medium} class="episode-image">
        <div class="main-detailse">
@@ -38,7 +77,7 @@ getAllEpisodes()
           <p>${element.summary ==null ? "" :element.summary }</p>
        </div>
        </div>
-    </div> </a>`
+    </div> `
   })
   episodes.innerHTML=html
   select.innerHTML= "<option value=-1>Show All</option>"+sel
@@ -71,7 +110,7 @@ function Search(search){
   x.map(item=>{
       
          html += `
-         <a href="episode.html?id=${item.id}">
+      
 
          <div class="card">
      <img src=${item.image==null ? "" :item.image.medium} class="episode-image">
@@ -84,7 +123,7 @@ function Search(search){
          <p>${item.summary ==null ? "" :item.summary }</p>
       </div>
       </div>
-   </div> </a>`
+   </div>`
 
  episodes.innerHTML=html 
   })
@@ -112,8 +151,6 @@ function filterSelect(id){
  x.map(item=>{
      
         html += `
-        <a href="episode.html?id=${item.id}">
-
         <div class="card">
     <img src=${item.image==null ? "" :item.image.medium} class="episode-image">
      <div class="main-detailse">
@@ -125,7 +162,7 @@ function filterSelect(id){
         <p>${item.summary ==null ? "" :item.summary }</p>
      </div>
      </div>
-  </div> </a>`
+  </div> `
 
 episodes.innerHTML=html 
  })
