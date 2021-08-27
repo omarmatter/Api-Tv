@@ -7,7 +7,10 @@ const select =document.querySelector('#select');
 const search = document.querySelector('#search');
 const main =document.querySelector('#main')
 
+window.addEventListener('load',function(){
+  spalsh.classList.add('hiden')
 
+})
 
 let id=hrefParams.get("id")
 let   allEpisodes=[]
@@ -15,7 +18,7 @@ getAllEpisodes()
 mainInfo();
 
 function mainInfo(){
-  fetch( `https://api.tvmaze.com/shows/${id}`)
+  fetch( `https://api.tvmaze.com/shows/${id}?embed=cast`)
   .then(function (re){
     return re.json(); 
       
@@ -23,7 +26,7 @@ function mainInfo(){
     
     let html = "";
 
-        html+=`<div class="image">
+        html+=`<div class="show-detailse"><div class="image">
         <img src="${e.image.original}">
       </div>
        <div class="summarey">
@@ -43,7 +46,25 @@ function mainInfo(){
          <div>
          <span>Runttime :</span> <span>${e.runtime}</span>
       </div>
-         </div>`
+         </div>
+         </div> 
+         <div class='parson'>`+
+        
+         e._embedded.cast.map(e=>{
+           return `
+         <div class=card>
+        <img src= '${e.person.image ==null ? '' :e.person.image.medium}'><br>
+        <span> Name :${e.person.name} </span><br>
+        <span> gender : ${e.person.gender} </span>
+        </div>
+       `
+     })
++
+     `<div>`
+        
+        
+        
+    
          main.innerHTML=html;
 
       })
@@ -71,7 +92,7 @@ function mainInfo(){
        <div class="main-detailse">
         <div class="top">
             <span>${element.name}</span>
-            <span>E0${element.number}S0${element.season}</span>
+            <span>${element.number <10 ? 'E0'+element.number :'E'+ element.number}${element.season <10 ?'S0'+element.season :'S'+element.season}</span>
         </div>
         <div class="bottom">
           <p>${element.summary ==null ? "" :element.summary }</p>
@@ -117,8 +138,8 @@ function Search(search){
       <div class="main-detailse">
        <div class="top">
            <span>${item.name}</span>
-           <span>S${item.season}E${item.number} </span>
-       </div>
+           <span>${element.number <10 ? 'E0'+element.number :'E'+ element.number}${element.season <10 ?'S0'+element.season :'S'+element.season}</span>
+           </div>
        <div class="bottom">
          <p>${item.summary ==null ? "" :item.summary }</p>
       </div>
@@ -156,8 +177,8 @@ function filterSelect(id){
      <div class="main-detailse">
       <div class="top">
           <span>${item.name}</span>
-          <span>S${item.season}E${item.number} </span>
-      </div>
+          <span>${item.number <10 ? 'E0'+item.number :'E'+ item.number}${item.season <10 ?'S0'+item.season :'S'+item.season}</span>
+          </div>
       <div class="bottom">
         <p>${item.summary ==null ? "" :item.summary }</p>
      </div>
@@ -167,6 +188,8 @@ function filterSelect(id){
 episodes.innerHTML=html 
  })
 }
+
+
 
 
 

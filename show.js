@@ -2,10 +2,14 @@ const episodes = document.querySelector('#episodes');
 const keySearch = document.querySelector('#inputSearch');
 const butnSearch = document.querySelector('#butnSearch');
 const count = document.querySelector('#count');
+const spalsh =document.querySelector('#spalsh');
 
  let allEpisodes=[];
 
+ window.addEventListener('load',function(){
+   spalsh.classList.add('hiden')
 
+ })
 const url_all_episodes=  'https://api.tvmaze.com/shows' 
 getAllEpisodes();
 keySearch.addEventListener('keyup',function(){
@@ -29,7 +33,7 @@ count.innerText=` ${data.length}/ ${data.length}`
 
     allEpisodes.push(element)
     
-         console.log(display(element))
+      
     html += display(element)
 })
 episodes.innerHTML=html
@@ -77,8 +81,9 @@ function display(item){
          
         </div>
         <div class="bottom">
-          <p>${item.summary ==null ? "" :item.summary }</p>
+          <p>${item.summary ==null ? "" :item.summary.substring(1,250) +'....'}</p>
        </div>
        </div>
     </div> </a>`
 }
+
